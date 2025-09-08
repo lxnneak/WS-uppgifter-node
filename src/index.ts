@@ -2,9 +2,15 @@ import express from "express"
 import "dotenv/config"
 import { closeDB, getDB, runDB } from "./db/database.js"
 import type { Db } from "mongodb"
+import type { User } from "./User.js"
 
 const app = express()
 const port: number = Number(process.env.PORT) || 3000
+const user: User = {
+  id: 1,
+  username: "linnea",
+  password: "password1",
+}
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello world!")
@@ -48,4 +54,8 @@ app.get("/api/v1/database/comments/:username", async (req, res) => {
   }
 
   res.send(result)
+})
+
+app.get("/user", (req, res) => {
+  res.status(201).send(user)
 })
